@@ -41,20 +41,6 @@ export class App extends PureComponent {
   handleFormSubmit = query => {
     this.setState({ searchQuery: query,
     images: [] });
-    // try {
-    //   const images = await getImage(query, this.state.page);
-    //   console.log(images);
-    //   this.setState({
-    //     images,
-    //     isLoading: true,
-    //     error: null,
-    //     total: images.totalHits,
-    //   });
-    // } catch (error) {
-    //   this.setState({ error });
-    // } finally {
-    //   this.setState({ isLoading: false });
-    // }
   };
 
   onLoadButtonClick = () => {

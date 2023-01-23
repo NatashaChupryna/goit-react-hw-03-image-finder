@@ -8,7 +8,7 @@ export class ImageGalleryItem extends PureComponent {
     isOpen: false,
   };
   toggleModal = () => {
-    console.log('modal');
+
     this.setState({
       isOpen: !this.state.isOpen,
     });
