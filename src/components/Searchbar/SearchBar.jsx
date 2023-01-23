@@ -1,5 +1,6 @@
 
 import { PureComponent } from 'react';
+import { toast } from 'react-hot-toast';
 import {
   Searchbar,
   SearchForm,
@@ -11,26 +12,34 @@ import {
 
 export class SearchBar extends PureComponent{
   state = {
-    searcQuery : ''
+    searchQuery : ''
   }
  
  handleQueryChange = (event) =>{
-this.setState({searcQuery : event.currentTarget.value.toLowerCase()})
-console.log(event.currentTarget.value)
+this.setState({searchQuery : event.currentTarget.value.toLowerCase()})
  } 
 
 handleSubmit = (event) => {
 event.preventDefault();
-this.props.onSubmit(this.state.searcQuery);
-this.setState({
-  searcQuery : ''
-})
+if(this.state.searchQuery.trim() === ''){
+toast.error('Please, enter your query', {
+  duration: 2000,})
 }
+this.props.onSubmit(this.state.searchQuery);
+this.resetForm()
+}
+
+resetForm = () => {
+  this.setState({
+    searchQuery : ''
+  })
+
+}
+
   render(){
     return (<Searchbar>
       <SearchForm onSubmit={this.handleSubmit}>
         <SearchFormButton type="submit" >
-          <SearchFormLabel>Search</SearchFormLabel>
           &#128269;
         </SearchFormButton>
   
