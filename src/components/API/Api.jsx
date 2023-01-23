@@ -21,4 +21,4 @@ export async function getImage(query, page) {
 
   // export default {
   //   getImage
-  // }
+  // }//
