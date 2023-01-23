@@ -40,7 +40,8 @@ export class App extends PureComponent {
 
   handleFormSubmit = query => {
     this.setState({ searchQuery: query,
-    images: [] });
+    images: [],
+  page: 1 });
   };
 
   onLoadButtonClick = () => {
