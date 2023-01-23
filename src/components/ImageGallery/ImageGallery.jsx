@@ -19,12 +19,12 @@
 //   }
 // }
 
-export const ImageGallery = (images) => {
-   console.log(typeof images)
+export const ImageGallery = ({images}) => {
+   console.log('image gallery props -',  typeof images)
    return (
       
       <ul>
-         {images.map(<li>{images.id}</li>)}
+         {/* {images.map(<li>{images.id}</li>)} */}
       </ul>
     );
 }

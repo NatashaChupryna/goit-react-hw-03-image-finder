@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { StyledApp } from './App.styled';
 import { SearchBar } from './Searchbar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import {getImage} from './API/Api';
+import { getImage } from './API/Api';
 // import { Modal } from './Modal/Modal';
 
 export class App extends PureComponent {
@@ -11,14 +11,13 @@ export class App extends PureComponent {
     searchQuery: '',
     showModal: false,
     isLoading: false,
-    images: [ {id:1}, {id:2} ],
+    images: [{ id: 1 }, { id: 2 }],
     error: null,
     page: 1,
     total: 0,
   };
 
-
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(_, prevState) {
     if (
       prevState.searchQuery !== this.state.searchQuery ||
       prevState.page !== this.state.page
@@ -52,11 +51,14 @@ export class App extends PureComponent {
   // };
 
   render() {
+    console.log('App state images-', typeof this.state.images) 
     return (
       <StyledApp>
         <SearchBar onSubmit={this.handleFormSubmit}></SearchBar>
         {this.state.isLoading && <h1>loading</h1>}
-        {this.state.images && <ImageGallery images={this.state.images}></ImageGallery>}
+        {this.state.images && (
+          <ImageGallery images={this.state.images}></ImageGallery>
+        )}
         {/* <button type='button' onClick={this.toggleModal}>open modal</button>
         {this.state.showModal && (
           <Modal onClose={this.toggleModal}></Modal>
