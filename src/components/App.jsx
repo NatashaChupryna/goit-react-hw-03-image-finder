@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { StyledApp } from './App.styled';
 import { SearchBar } from './Searchbar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import API from './API/Api';
+import {getImage} from './API/Api';
 // import { Modal } from './Modal/Modal';
 
 export class App extends PureComponent {
@@ -24,7 +24,7 @@ export class App extends PureComponent {
       prevState.page !== this.state.page
     ) {
       try {
-        const images = API.getImage(this.state.searchQuery, this.state.page);
+        const images = getImage(this.state.searchQuery, this.state.page);
         this.setState({
           images,
           isLoading: true,

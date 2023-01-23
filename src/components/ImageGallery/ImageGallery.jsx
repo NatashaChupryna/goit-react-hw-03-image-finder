@@ -20,7 +20,7 @@
 // }
 
 export const ImageGallery = (images) => {
-   console.log(images)
+   console.log(typeof images)
    return (
       
       <ul>
