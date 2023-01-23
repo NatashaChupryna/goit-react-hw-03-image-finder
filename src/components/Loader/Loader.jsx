@@ -1,20 +1,22 @@
 import { Oval } from 'react-loader-spinner';
+import { LoaderDiv } from './Loader.styled';
 
 export const Loader = () => {
   return (
-    <div>
+    <LoaderDiv>
       <Oval
         height={80}
         width={80}
-        color="#4fa94d"
+        color="#547054"
         wrapperStyle={{}}
         wrapperClass=""
         visible={true}
         ariaLabel="oval-loading"
-        secondaryColor="#4fa94d"
-        strokeWidth={2}
-        strokeWidthSecondary={2}
+        secondaryColor="#8ea98e"
+        strokeWidth={5}
+        strokeWidthSecondary={5}
+
       />
-    </div>
+    </LoaderDiv>
   );
 };

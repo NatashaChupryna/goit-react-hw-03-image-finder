@@ -53,19 +53,24 @@ export class App extends PureComponent {
     return (
       <StyledApp>
         <SearchBar onSubmit={this.handleFormSubmit}></SearchBar>
+
         {this.state.isLoading && <Loader></Loader>}
+
+
         {this.state.images && (
           <ImageGallery
             images={this.state.images}
             onModalClick={this.toggleModal}
           ></ImageGallery>
         )}
+
         {this.state.total !== 0 && (
           <Button
             onClick={this.onLoadButtonClick}
             isLoading={this.state.isLoading}
           ></Button>
         )}
+
         <Toaster />
       </StyledApp>
     );
