@@ -1,30 +1,21 @@
-// import { PureComponent } from 'react';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { List } from './ImageGallery.styled';
 
-// export class ImageGallery extends PureComponent {
 
-// // componentDidMount(prevProps, prevState){
-// // if(prevProps.searchQuery !== this.props.searchQuery){
-// //    console.log('change')
-// // }
-// // }
 
-//   render() {
-//    console.log('props of image gallery', this.props)
- 
-//     return (
-//       <ul>
-//          {this.props.images.map(<li>{images.id}</li>)}
-//       </ul>
-//     );
-//   }
-// }
+export const ImageGallery = props => {
+  const { images, error } = props;
+  return (
+    <div>
+      {props.error && <h2>{' Please try again'}</h2>}
 
-export const ImageGallery = ({images}) => {
-   console.log('image gallery props -',  typeof images)
-   return (
-      
-      <ul>
-         {/* {images.map(<li>{images.id}</li>)} */}
-      </ul>
-    );
-}
+      {images && (
+        <List>
+          {images.map(item => (
+            <ImageGalleryItem key={item.id} item={item} />
+          ))}
+        </List>
+      )}
+    </div>
+  );
+};

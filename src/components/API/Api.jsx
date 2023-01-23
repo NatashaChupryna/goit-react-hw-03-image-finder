@@ -1,24 +1,17 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
-export async function getImage(query, page) {
-    try {
-      const response = await axios.get('https://pixabay.com/api/?',{
-        params: {
-          key: '31663443-8f4004a5a69c11dc368053c6d',
-          g : `${query}`,
-          page : `${page}`,
-          per_page : 12,
-          image_type : 'photo',
-          orientation : 'horizontal'
-        }});
-        console.log('data', response.data.hits)
-    return response.data.hits;
-    
-    } catch (error) {
-      console.error(error);
-    }
+const KEY = `31735095-684ab1f66144313a79ef81b6d`;
+axios.defaults.baseURL = `https://pixabay.com/api/`;
+
+export const getImage = async (query, page) => {
+  const responce = await axios.get(
+    `?key=${KEY}&q=${query}&orientation=horizontal&safesearch=true&image_type=photo&per_page=12&page=${page}`
+  );
+  if (responce.data.hits.length > 0) {
+    return responce.data.hits;
+  } else {
+    toast.error('We don`t have pictures for this request. Please try another word');
   }
+};
 
-  // export default {
-  //   getImage
-  // }//

@@ -4,32 +4,32 @@ import { StyledApp } from './App.styled';
 import { SearchBar } from './Searchbar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { getImage } from './API/Api';
-// import { Modal } from './Modal/Modal';
+import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
 
 export class App extends PureComponent {
   state = {
-    searchQuery: '',
-    showModal: false,
     isLoading: false,
-    images: [{ id: 1 }, { id: 2 }],
+    images: [],
     error: null,
     page: 1,
     total: 0,
   };
 
-  async componentDidUpdate(_, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.searchQuery !== this.state.searchQuery ||
-      prevState.page !== this.state.page
+      prevState.page !== this.state.page ||
+      prevState.searchQuery !== this.state.searchQuery
     ) {
       try {
-        const images = getImage(this.state.searchQuery, this.state.page);
-        this.setState({
-          images,
+        const images = await getImage(this.state.searchQuery, this.state.page);
+   
+        this.setState(prevState => ({
+          images: prevState.images.concat(images),
           isLoading: true,
           error: null,
           total: images.totalHits,
-        });
+        }));
       } catch (error) {
         this.setState({ error });
       } finally {
@@ -39,31 +39,47 @@ export class App extends PureComponent {
   }
 
   handleFormSubmit = query => {
-    this.setState({ searcQuery: query });
+    this.setState({ searchQuery: query,
+    images: [] });
+    // try {
+    //   const images = await getImage(query, this.state.page);
+    //   console.log(images);
+    //   this.setState({
+    //     images,
+    //     isLoading: true,
+    //     error: null,
+    //     total: images.totalHits,
+    //   });
+    // } catch (error) {
+    //   this.setState({ error });
+    // } finally {
+    //   this.setState({ isLoading: false });
+    // }
   };
 
-  // Модалка
-  // showNodal : false, in state
-  // toggleModal = () => {
-  //   this.setState(prevState => ({
-  //     showModal: !prevState.showModal,
-  //   }));
-  // };
+  onLoadButtonClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
 
   render() {
-    console.log('App state images-', typeof this.state.images) 
     return (
       <StyledApp>
         <SearchBar onSubmit={this.handleFormSubmit}></SearchBar>
-        {this.state.isLoading && <h1>loading</h1>}
+        {this.state.isLoading && <Loader></Loader>}
         {this.state.images && (
-          <ImageGallery images={this.state.images}></ImageGallery>
+          <ImageGallery
+            images={this.state.images}
+            onModalClick={this.toggleModal}
+          ></ImageGallery>
         )}
-        {/* <button type='button' onClick={this.toggleModal}>open modal</button>
-        {this.state.showModal && (
-          <Modal onClose={this.toggleModal}></Modal>
-        )} */}
-
+        {this.state.total !== 0 && (
+          <Button
+            onClick={this.onLoadButtonClick}
+            isLoading={this.state.isLoading}
+          ></Button>
+        )}
         <Toaster />
       </StyledApp>
     );

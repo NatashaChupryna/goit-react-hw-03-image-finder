@@ -1,7 +1,38 @@
-import React from "react";
-import ImageGalleryItem from ".";
+import { PureComponent } from 'react';
+import { ListItem, Image } from './ImageGalleryItem.styled';
+import { Modal } from 'components/Modal/Modal';
 
-export const ImageGallery = () => {
-   <li></li>
+
+export class ImageGalleryItem extends PureComponent {
+  state = {
+    isOpen: false,
   };
-  
+  toggleModal = () => {
+    console.log('modal');
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  };
+
+  render() {
+    const { webformatURL, largeImageURL, tags } = this.props.item;
+
+    return (
+      <ListItem>
+        <Image
+          src={webformatURL}
+          alt={tags}
+          onClick={this.toggleModal}
+        />
+
+        {this.state.isOpen && (
+          <Modal
+            srcImg={largeImageURL}
+            tags={tags}
+            onClose={this.toggleModal}
+          />
+        )}
+      </ListItem>
+    );
+  }
+}

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -10,19 +10,15 @@ export const Backdrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1200;   
-`
+  z-index: 1200;
+`;
 
 export const ModalDiv = styled.div`
- position : absolute;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
-
-width: 400px;
-height: 400px;
-background-color: white;
- max-width: calc(100vw - 48px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
-
-`
+`;

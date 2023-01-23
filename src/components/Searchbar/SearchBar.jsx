@@ -15,25 +15,29 @@ export class SearchBar extends PureComponent{
   }
  
  handleQueryChange = (event) =>{
-this.setState({searchQuery : event.currentTarget.value.toLowerCase()})
+this.setState({searchQuery : event.currentTarget.value.toLowerCase()});
+
+if(this.state.searchQuery.trim() === ''){
+  toast.error('Please, enter your query', {
+    duration: 2000,})
+  }
  } 
 
 handleSubmit = (event) => {
 event.preventDefault();
-if(this.state.searchQuery.trim() === ''){
-toast.error('Please, enter your query', {
-  duration: 2000,})
-}
+
 this.props.onSubmit(this.state.searchQuery);
-this.resetForm()
+
+event.target.reset()
+// this.setState({searchQuery: ''})
 }
 
-resetForm = () => {
-  this.setState({
-    searchQuery : ''
-  })
+// resetForm = () => {
+//   this.setState({
+//     searchQuery : ''
+//   })
 
-}
+// }
 
   render(){
     return (<Searchbar>

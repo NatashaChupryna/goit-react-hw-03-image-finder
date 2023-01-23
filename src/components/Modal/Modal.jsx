@@ -4,31 +4,36 @@ import { Backdrop, ModalDiv } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export class Modal extends PureComponent {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = (event) => {
-    if (event.code === 'Escape') {
-      this.props.onClose();
+export class Modal extends PureComponent
+{ 
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleKeyD )
     }
-  };
- 
-  closeOnBackdropClick = (event) => {
-if(event.target === event.currentTarget)
-this.props.onClose();
-  }
 
-  render() {
-    return createPortal(
-      <Backdrop onClick={this.closeOnBackdropClick}>
-        <ModalDiv></ModalDiv>
-      </Backdrop>,
-      modalRoot
-    );
-  }
+    componentWillUnmount(){
+            window.removeEventListener('keydown', this.handleKeyD )
+        }
+    handleKeyD = e => {
+        if (e.code === 'Escape') {
+        this.props.onClose()
+        }
+
+    }
+ handleBackdropClick = e => {
+            
+     if (e.currentTarget === e.target) {
+         this.props.onClose()
+     }
 }
+
+    render() {
+    const { srcImg, tags } = this.props
+return createPortal( <Backdrop onClick={this.handleBackdropClick}>
+  <ModalDiv className="modal">
+    <img src={srcImg}  alt={tags} />
+  </ModalDiv>
+</Backdrop>, modalRoot)
+}
+  
+}
+
