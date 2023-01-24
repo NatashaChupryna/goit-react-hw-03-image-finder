@@ -74,7 +74,10 @@ export class App extends PureComponent {
           ></Button>
         )}
 
-        <Toaster />
+<Toaster
+  position="top-right"
+  reverseOrder={false}
+/>
       </StyledApp>
     );
   }
