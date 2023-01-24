@@ -23,7 +23,9 @@ export class App extends PureComponent {
     ) {
       try {
         const images = await getImage(this.state.searchQuery, this.state.page);
-   
+   if(!images){
+    throw new Error()
+   }
         this.setState(prevState => ({
           images: prevState.images.concat(images),
           isLoading: true,
@@ -53,7 +55,7 @@ export class App extends PureComponent {
   render() {
     return (
       <StyledApp>
-        <SearchBar onSubmit={this.handleFormSubmit}></SearchBar>
+        <SearchBar onSubmit={this.handleFormSubmit} isLoading={this.state.isLoading}></SearchBar>
 
         {this.state.isLoading && <Loader></Loader>}
 
@@ -65,10 +67,10 @@ export class App extends PureComponent {
           ></ImageGallery>
         )}
 
-        {this.state.total !== 0 && (
+        {this.state.images.length > 0 && (
           <Button
             onClick={this.onLoadButtonClick}
-            isLoading={this.state.isLoading}
+            // isLoading={this.state.isLoading}
           ></Button>
         )}
 
